@@ -30,7 +30,7 @@ public class UserService {
         Optional<User> userOptional = Optional
                 .ofNullable(userRepository.findByEmail(email));
 
-        if (!userOptional.isPresent()) {
+        if (userOptional.isEmpty()) {
             return "Invalid email id.";
         }
 
@@ -48,7 +48,7 @@ public class UserService {
         Optional<User> userOptional = Optional
                 .ofNullable(userRepository.findByToken(token));
 
-        if (!userOptional.isPresent()) {
+        if (userOptional.isEmpty()) {
             return "Invalid token.";
         }
 
@@ -69,10 +69,9 @@ public class UserService {
         return "Your password successfully updated.";
     }
     private String generateToken() {
-        StringBuilder token = new StringBuilder();
 
-        return token.append(UUID.randomUUID().toString())
-                .append(UUID.randomUUID().toString()).toString();
+        return String.valueOf(UUID.randomUUID()) +
+                UUID.randomUUID();
     }
     private boolean isTokenExpired(final LocalDateTime tokenCreationDate) {
 
