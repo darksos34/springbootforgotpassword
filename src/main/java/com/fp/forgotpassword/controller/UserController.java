@@ -7,6 +7,7 @@ package com.fp.forgotpassword.controller;
 import com.fp.forgotpassword.service.UserService;
 import lombok.AllArgsConstructor;
 
+import lombok.Getter;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -17,7 +18,7 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping("/forgot-password")
-    public String forgotPassword(@RequestParam (value = "params",required = false) String email) {
+    public <token> String forgotPassword(@RequestParam (required = false) String email) {
 
         String response = userService.forgotPassword(email);
 
@@ -28,9 +29,13 @@ public class UserController {
     }
 
     @PutMapping("/reset-password")
-    public String resetPassword(@RequestParam String token,
-                                @RequestParam String password) {
+    public String resetPassword(@RequestParam (required = false)String token,
+                                @RequestParam (required = false)String password) {
 
         return userService.resetPassword(token, password);
+    }
+    @GetMapping("/users")
+    public String getPassword (@RequestParam (required = false) String email){
+        return userService.forgotPassword( email);
     }
 }

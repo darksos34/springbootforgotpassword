@@ -30,10 +30,10 @@ public class UserService {
         Optional<User> userOptional = Optional
                 .ofNullable(userRepository.findByEmail(email));
 
+
         if (userOptional.isEmpty()) {
             return "Invalid email id.";
         }
-
         User user = userOptional.get();
         user.setToken(generateToken());
         user.setTokenCreationDate(LocalDateTime.now());
